@@ -1,6 +1,6 @@
 {
   "name": "@3akram/strapi-provider-upload-google-cloud-storage",
-  "version": "0.0.0-development",
+  "version": "1.0.0",
   "description": "Google Cloud Storage provider for Strapi v5 upload",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -31,7 +31,9 @@
     "access": "public"
   },
   "release": {
-    "branches": ["main"],
+    "branches": [
+      "main"
+    ],
     "plugins": [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator",
