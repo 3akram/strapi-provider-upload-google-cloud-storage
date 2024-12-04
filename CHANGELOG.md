@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/compare/v1.0.1...v1.1.0) (2024-12-04)
+
+
+### Features
+
+* implement all provider options ([ae70a66](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/commit/ae70a660237f887495cfc0f9791a278a2dd75218))
+
 ## [1.0.1](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/compare/v1.0.0...v1.0.1) (2024-12-04)
 
 
