@@ -1,6 +1,6 @@
 {
   "name": "@strapi/provider-upload-google-cloud-storage",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Google Cloud Storage provider for Strapi v5 upload",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -11,16 +11,34 @@
   "scripts": {
     "clean": "rm -rf ./lib",
     "build": "tsc",
-    "prepare": "yarn build"
+    "prepare": "yarn build",
+    "semantic-release": "semantic-release"
   },
   "dependencies": {
     "@google-cloud/storage": "^6.10.0"
   },
   "devDependencies": {
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/git": "^10.0.1",
     "@types/node": "^18.0.0",
+    "semantic-release": "^21.0.7",
     "typescript": "^5.0.0"
   },
   "peerDependencies": {
     "@strapi/strapi": "^5.4.0"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "release": {
+    "branches": ["main"],
+    "plugins": [
+      "@semantic-release/commit-analyzer",
+      "@semantic-release/release-notes-generator",
+      "@semantic-release/changelog",
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ]
   }
 }
