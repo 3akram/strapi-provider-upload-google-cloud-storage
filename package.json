@@ -40,5 +40,23 @@
       "@semantic-release/git",
       "@semantic-release/github"
     ]
-  }
+  },
+  "keywords": [
+    "strapi",
+    "upload",
+    "provider",
+    "google-cloud-storage",
+    "gcs",
+    "storage"
+  ],
+  "author": "3akram",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/3akram/strapi-provider-upload-google-cloud-storage.git"
+  },
+  "bugs": {
+    "url": "https://github.com/3akram/strapi-provider-upload-google-cloud-storage/issues"
+  },
+  "homepage": "https://github.com/3akram/strapi-provider-upload-google-cloud-storage#readme"
 }
