@@ -13,6 +13,12 @@ export = {
         const bucket = storage.bucket(config.bucketName);
         logger.info(`Connected to bucket: ${config.bucketName}`);
 
+        // Helper function to construct file path
+        const getFilePath = (filename: string): string => {
+            const basePath = config.basePath?.replace(/^\/+|\/+$/g, '') || '';
+            return basePath ? `${basePath}/${filename}` : filename;
+        };
+
         return {
             async upload(file: File) {
                 try {
@@ -24,36 +30,41 @@ export = {
                         size: file.size,
                     });
 
-                    // Create a unique filename
+                    // Create a unique filename and path
                     const filename = `${file.hash}${file.ext}`;
-                    logger.info(`Generated filename: ${filename}`);
+                    const filepath = getFilePath(filename);
+                    logger.info(`Generated filepath: ${filepath}`);
 
                     // Create a new blob in the bucket
-                    const blob = bucket.file(filename);
+                    const blob = bucket.file(filepath);
                     logger.info('Created blob reference');
 
-                    // Upload the file data
-                    const blobStream = blob.createWriteStream({
+                    // Prepare upload options
+                    const uploadOptions: any = {
                         resumable: false,
                         metadata: {
                             contentType: file.mime,
                         },
-                    });
-                    logger.info('Created write stream with metadata:', { contentType: file.mime });
+                    };
+
+                    // Add predefined ACL if uniform access is not enabled
+                    if (!config.uniform && config.publicFiles) {
+                        uploadOptions.predefinedAcl = 'publicRead';
+                    }
+
+                    // Upload the file data
+                    const blobStream = blob.createWriteStream(uploadOptions);
+                    logger.info('Created write stream with options:', uploadOptions);
 
                     // Handle errors during upload
                     return new Promise((resolve, reject) => {
                         blobStream.on('error', error => {
-                            logger.error(`Error uploading file ${filename}:`, error);
+                            logger.error(`Error uploading file ${filepath}:`, error);
                             reject(error);
                         });
 
                         blobStream.on('finish', async () => {
                             try {
-                                // Construct the public URL
-                                const publicUrl = `https://storage.googleapis.com/${config.bucketName}/${filename}`;
-                                logger.info(`Upload finished. Public URL: ${publicUrl}`);
-
                                 // Check if the file exists in the bucket
                                 const [exists] = await blob.exists();
                                 logger.info(`File exists in bucket: ${exists}`);
@@ -61,6 +72,16 @@ export = {
                                 if (!exists) {
                                     throw new Error('File was not uploaded successfully');
                                 }
+
+                                // Make the file public if needed and uniform access is not enabled
+                                if (!config.uniform && config.publicFiles) {
+                                    await blob.makePublic();
+                                    logger.info('File made public');
+                                }
+
+                                // Construct the public URL
+                                const publicUrl = `https://storage.googleapis.com/${config.bucketName}/${filepath}`;
+                                logger.info(`Upload finished. Public URL: ${publicUrl}`);
 
                                 const result = {
                                     ...file,
@@ -96,15 +117,19 @@ export = {
                     }
 
                     // Extract filename from the URL
-                    const filename = file.url.split('/').pop();
+                    const urlParts = file.url.split('/');
+                    const filename = urlParts[urlParts.length - 1];
                     if (!filename) {
                         throw new Error('Could not extract filename from URL');
                     }
 
-                    logger.info(`Attempting to delete file: ${filename}`);
-                    // Delete the file from GCS
-                    await bucket.file(filename).delete();
-                    logger.info(`File ${filename} deleted successfully`);
+                    // Get the full filepath
+                    const filepath = getFilePath(filename);
+                    logger.info(`Deleting file: ${filepath}`);
+
+                    // Delete the file
+                    await bucket.file(filepath).delete();
+                    logger.info('File deleted successfully');
                 } catch (error) {
                     logger.error('Error in delete:', error);
                     throw error;
