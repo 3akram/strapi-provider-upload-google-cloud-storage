@@ -5,7 +5,7 @@ A Google Cloud Storage provider for Strapi v5 upload.
 ## Installation
 
 ```bash
-yarn add @strapi/provider-upload-google-cloud-storage
+yarn add @3akram/strapi-provider-upload-google-cloud-storage
 ```
 
 ## Configuration
@@ -17,7 +17,7 @@ yarn add @strapi/provider-upload-google-cloud-storage
 export default ({ env }) => ({
   upload: {
     config: {
-      provider: '@strapi/provider-upload-google-cloud-storage',
+      provider: '@3akram/strapi-provider-upload-google-cloud-storage',
       providerOptions: {
         bucketName: env('GOOGLE_CLOUD_BUCKET'),
         publicFiles: true,
