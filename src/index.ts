@@ -21,8 +21,9 @@ export = {
 
         // Helper function to create the public url
         const getPublicUrl = (filepath: string) => {
-            const {bucketName, baseUrl = 'https://storage.googleapis.com'} = config;
-            return `${baseUrl}/${bucketName}/${filepath}`;
+            const {bucketName, baseUrl} = config;
+            const base = baseUrl ?? `https://storage.googleapis.com/${bucketName}`;
+            return `${base}/${filepath}`;
         }
 
         return {
