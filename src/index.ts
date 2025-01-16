@@ -19,6 +19,13 @@ export = {
             return basePath ? `${basePath}/${filename}` : filename;
         };
 
+        // Helper function to create the public url
+        const getPublicUrl = (filepath: string) => {
+            const {bucketName, baseUrl} = config;
+            const base = baseUrl ?? `https://storage.googleapis.com/${bucketName}`;
+            return `${base}/${filepath}`;
+        }
+
         return {
             async upload(file: File) {
                 try {
@@ -80,7 +87,7 @@ export = {
                                 }
 
                                 // Construct the public URL
-                                const publicUrl = `https://storage.googleapis.com/${config.bucketName}/${filepath}`;
+                                const publicUrl = getPublicUrl(filepath);
                                 logger.info(`Upload finished. Public URL: ${publicUrl}`);
 
                                 const result = {

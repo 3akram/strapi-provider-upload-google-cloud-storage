@@ -3,6 +3,7 @@ export interface ProviderOptions {
   publicFiles?: boolean;
   uniform?: boolean;
   basePath?: string;
+  baseUrl?: string;
 }
 
 export interface File {
