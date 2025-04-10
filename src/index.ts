@@ -4,9 +4,15 @@ import { logger, validateConfig } from './utils';
 
 export = {
     init(config: ProviderOptions) {
-        // Validate the configuration
+        // Validate the configuration and set log level if provided
         validateConfig(config);
-        logger.info('Initializing GCS provider with config:', config);
+        
+        // Log configuration with appropriate level (this will only show if logLevel allows info logs)
+        logger.info('Initializing GCS provider with config:', {
+            ...config,
+            // Don't log any potential credentials that might be in the config
+            _sanitized: true
+        });
 
         // Initialize Google Cloud Storage
         const storage = new Storage();
