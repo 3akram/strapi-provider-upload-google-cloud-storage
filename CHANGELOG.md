@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/compare/v1.1.0...v1.2.0) (2025-01-16)
+
+
+### Features
+
+* Create config property to be able to set baseUrl for public files ([c011f61](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/commit/c011f616ad8d8815573bd63875e57964f893dc0e))
+
 # [1.1.0](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/compare/v1.0.1...v1.1.0) (2024-12-04)
 
 

@@ -4,6 +4,7 @@ export interface ProviderOptions {
   uniform?: boolean;
   basePath?: string;
   logLevel?: 'debug' | 'info' | 'error' | 'none';
+  baseUrl?: string;
 }
 
 export interface File {

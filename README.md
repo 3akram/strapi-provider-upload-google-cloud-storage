@@ -23,6 +23,7 @@ export default ({ env }) => ({
         publicFiles: true,
         uniform: true,
         basePath: '',
+        baseUrl: 'https://custom-url.com' // Optional base url. Replaces https://storage.googleapis.com/{bucketName}
       },
     },
   },
