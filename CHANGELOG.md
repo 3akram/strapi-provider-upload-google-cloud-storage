@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/compare/v1.2.0...v1.3.0) (2025-04-10)
+
+
+### Features
+
+* add configurable log level ([6b198d7](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/commit/6b198d7557a36e586727d7e2946e3e979fde2d7d))
+
 # [1.2.0](https://github.com/3akram/strapi-provider-upload-google-cloud-storage/compare/v1.1.0...v1.2.0) (2025-01-16)
 
 
